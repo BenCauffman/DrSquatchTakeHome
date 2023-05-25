@@ -4,7 +4,7 @@ in bundles. And returns out a new object that contains this new scent property t
 used by the frontend.
 */
 
-async function getBundlesWithScents() {
+async function getBundlesWithMoreInfo() {
   const json = await fetch(
     "https://ae3t7l1i79.execute-api.us-east-1.amazonaws.com/bundles"
   );
@@ -26,6 +26,7 @@ async function getBundlesWithScents() {
 
   for (let i = 0; i < res.length; ++i) {
     newBundleList[i].scents = await getAllScents(res[i]);
+    newBundleList[i].originalPrice = await getAllPrices(res[i])
   }
 
   return newBundleList;
@@ -61,4 +62,33 @@ async function getAllScents(bundle) {
   return [...scentSet];
 }
 
-export default getBundlesWithScents;
+async function getAllPrices(bundle) {
+  const promises = [];
+
+  async function getPrices(product) {
+    const json = await fetch(
+      `https://ae3t7l1i79.execute-api.us-east-1.amazonaws.com/product/${product}`
+    );
+
+    if (!json.ok) {
+      throw new Error(
+        "Much like Dr. Squatch's namesake, the products can't be found"
+      );
+    }
+    const res = await json.json();
+
+    return res.price;
+  }
+
+  for (let i = 0; i < bundle.products_included.length; ++i) {
+    promises.push(getPrices(bundle.products_included[i]));
+  }
+  const prices = await Promise.all(promises);
+
+  const newPrice = prices.reduce((acc, curr) => acc += curr);
+
+  return newPrice;
+}
+
+
+export default getBundlesWithMoreInfo;

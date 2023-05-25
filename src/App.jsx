@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { useEffect, useState } from "react";
-import getBundlesWithScents from "../utils/getBundlesWithScents";
+import getBundlesWithScents from "../utils/getBundlesWithMoreInfo";
 import CollectionPage from "./CollectionPage";
 import Filter from "./Filter";
 
@@ -12,6 +12,7 @@ const App = () => {
     try {
       const res = await getBundlesWithScents();
       setData(res);
+      console.log(res)
 
       const uniqueScents = [];
       for (let i = 0; i < res.length; ++i) {
