@@ -75,7 +75,7 @@ const Card = ({
                     style={{ backgroundColor: `${COLORS.woodsy}` }}
                     className="scentCard"
                   >
-                    {scent}
+                    {scent.toUpperCase()}
                   </div>
                 );
 
@@ -85,7 +85,7 @@ const Card = ({
                     style={{ backgroundColor: `${COLORS.citrus}` }}
                     className="scentCard"
                   >
-                    {scent}
+                    {scent.toUpperCase()}
                   </div>
                 );
               case "fresh":
@@ -94,7 +94,7 @@ const Card = ({
                     style={{ backgroundColor: `${COLORS.fresh}` }}
                     className="scentCard"
                   >
-                    {scent}
+                    {scent.toUpperCase()}
                   </div>
                 );
               case "herbal":
@@ -103,7 +103,7 @@ const Card = ({
                     style={{ backgroundColor: `${COLORS.herbal}` }}
                     className="scentCard"
                   >
-                    {scent}
+                    {scent.toUpperCase()}
                   </div>
                 );
               case "rich":
@@ -112,7 +112,7 @@ const Card = ({
                     style={{ backgroundColor: `${COLORS.rich}` }}
                     className="scentCard"
                   >
-                    {scent}
+                    {scent.toUpperCase()}
                   </div>
                 );
               case "spiced":
@@ -121,7 +121,7 @@ const Card = ({
                     style={{ backgroundColor: `${COLORS.spiced}` }}
                     className="scentCard"
                   >
-                    {scent}
+                    {scent.toUpperCase()}
                   </div>
                 );
               default:
