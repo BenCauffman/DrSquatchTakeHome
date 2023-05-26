@@ -46,7 +46,6 @@ const Card = ({
 
   useEffect(() => {
     convertProducts();
-    console.log(products)
   }, []);
 
   return (
@@ -132,17 +131,35 @@ const Card = ({
         </div>
         <strong>Included</strong>
         <p>
-          {products[0].map((prod, index) => {
-            if (products[1][index] === 1 && index === products[0].length - 1) {
-              return <span>{`and ${products[0][index]}.`}</span>;
-            } else if (products[1][index] === 1 && index !== products[0].length - 1) {
-              return <span>{`${products[0][index]}, `}</span>;
-            } else if (products[1][index] !== 1 && index !== products[0].length - 1) {
-              return <span>{`${products[0][index]} x ${products[1][index]}, `}</span>;
-            } else if (products[1][index] !== 1 && index === products[0].length - 1) {
-              return <span>{`and ${products[0][index]} x ${products[1][index]}`}</span>;
-            }
-          })}
+          {products[0]
+            ? products[0].map((prod, index) => {
+                if (
+                  products[1][index] === 1 &&
+                  index === products[0].length - 1
+                ) {
+                  return <span>{`and ${products[0][index]}.`}</span>;
+                } else if (
+                  products[1][index] === 1 &&
+                  index !== products[0].length - 1
+                ) {
+                  return <span>{`${products[0][index]}, `}</span>;
+                } else if (
+                  products[1][index] !== 1 &&
+                  index !== products[0].length - 1
+                ) {
+                  return (
+                    <span>{`${products[0][index]} x ${products[1][index]}, `}</span>
+                  );
+                } else if (
+                  products[1][index] !== 1 &&
+                  index === products[0].length - 1
+                ) {
+                  return (
+                    <span>{`and ${products[0][index]} x ${products[1][index]}`}</span>
+                  );
+                }
+              })
+            : ""}
         </p>
       </div>
     </div>
