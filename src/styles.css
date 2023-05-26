@@ -17,7 +17,7 @@ body {
   align-items: flex-start;
   justify-content: center;
   border: 1px black solid;
-  border-radius: 10%;
+  border-radius: 16px;
   width: 75%;
   max-width: 250px;
   background-color: whitesmoke;
@@ -53,6 +53,7 @@ h5 {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  padding-bottom: 10px;
 }
 
 .scentCard {

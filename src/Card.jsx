@@ -17,7 +17,7 @@ const Card = ({
   imageSrc,
   scents,
 }) => {
-  const [products, setProducts] = useState("");
+  const [products, setProducts] = useState([]);
 
   function convertProducts() {
     const seenProducts = {};
@@ -28,12 +28,26 @@ const Card = ({
         seenProducts[product] = 1;
       }
     });
-    setProducts(seenProducts);
+    const newProducts = Object.entries(seenProducts);
+    const finalProducts = [];
+    const finalAmounts = [];
+    for (const [prods, amount] of newProducts) {
+      const splitProds = prods.split("-");
+      console.log(splitProds);
+      let newProds = splitProds.map((prod) => {
+        return `${prod[0].toUpperCase()}${prod.slice(1)}`;
+      });
+      newProds = newProds.join(" ");
+      finalProducts.push(newProds);
+      finalAmounts.push(amount);
+    }
+    setProducts([finalProducts, finalAmounts]);
   }
 
   useEffect(() => {
     convertProducts();
-  });
+    console.log(products)
+  }, []);
 
   return (
     <div className="card">
@@ -49,12 +63,11 @@ const Card = ({
               <h5 id="newprice">{`$${price.toString().slice(0, 2)}`}</h5>
             </>
           ) : (
-            <h5 id="newprice">{`${price.toString().slice(0, 2)}`}</h5>
+            <h5 id="newprice">{`$${price.toString().slice(0, 2)}`}</h5>
           )}
         </div>
         <div className="scentList">
           {scents.map((scent) => {
-            console.log(scent);
             switch (scent) {
               case "woodsy":
                 return (
@@ -117,12 +130,18 @@ const Card = ({
             }
           })}
         </div>
-        <span>Included</span>
+        <strong>Included</strong>
         <p>
-          {products_included.map((product) => {
-            const seenProducts = {};
-            seenProducts.product = 1;
-            return <p>{product}</p>;
+          {products[0].map((prod, index) => {
+            if (products[1][index] === 1 && index === products[0].length - 1) {
+              return <span>{`and ${products[0][index]}.`}</span>;
+            } else if (products[1][index] === 1 && index !== products[0].length - 1) {
+              return <span>{`${products[0][index]}, `}</span>;
+            } else if (products[1][index] !== 1 && index !== products[0].length - 1) {
+              return <span>{`${products[0][index]} x ${products[1][index]}, `}</span>;
+            } else if (products[1][index] !== 1 && index === products[0].length - 1) {
+              return <span>{`and ${products[0][index]} x ${products[1][index]}`}</span>;
+            }
           })}
         </p>
       </div>
