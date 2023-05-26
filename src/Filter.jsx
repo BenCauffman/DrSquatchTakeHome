@@ -25,7 +25,7 @@ const Filter = ({ scents, setCheckedScents }) => {
                     name={`${scent}`}
                     onChange={handleClick}
                   />
-                  <label htmlFor={`${scent}`}>{scent}</label>
+                  <label htmlFor={`${scent}`}>{`${scent.charAt(0).toUpperCase()}${scent.slice(1)}`}</label>
                 </>
               );
             })}

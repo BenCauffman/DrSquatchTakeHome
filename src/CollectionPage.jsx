@@ -3,7 +3,7 @@ import Card from "./Card";
 
 const CollectionPage = ({ bundlesToShow }) => {
   return (
-    <>
+    <div className="collection">
       {bundlesToShow.map((bundle) => {
         return (
           <Card
@@ -11,12 +11,13 @@ const CollectionPage = ({ bundlesToShow }) => {
             title={bundle.title}
             products_included={bundle.products_included}
             price={bundle.price}
-            originalPrice={bundle.orignalPrice}
+            originalPrice={bundle.originalPrice}
             imageSrc={bundle.imageSrc}
+            scents={bundle.scents}
           />
         );
       })}
-    </>
+    </div>
   );
 };
 
