@@ -1,18 +1,20 @@
 import { createRoot } from "react-dom/client";
 import { useEffect, useState } from "react";
-import getBundlesWithScents from "../utils/getBundlesWithMoreInfo";
-import CollectionPage from "./CollectionPage";
+import getBundlesWithMoreInfo from "../utils/getBundlesWithMoreInfo";
 import Filter from "./Filter";
+import CollectionPage from "./CollectionPage";
 
 const App = () => {
   const [data, setData] = useState([]);
   const [scents, setScents] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const [checkedScents, setCheckedScents] = useState([]);
+  const [bundlesToShow, setBundlesToShow] = useState([]);
 
   async function getData() {
     try {
-      const res = await getBundlesWithScents();
+      const res = await getBundlesWithMoreInfo();
       setData(res);
-      console.log(res)
 
       const uniqueScents = [];
       for (let i = 0; i < res.length; ++i) {
@@ -29,12 +31,35 @@ const App = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+    setLoaded(true);
+  });
+
+  useEffect(() => {
+    const newData = data.filter((bundle) => {
+      for (let i = 0; i < bundle.scents.length; ++i) {
+        if (checkedScents.includes(bundle.scents[i])) {
+          return bundle;
+        }
+      }
+    });
+    console.log(newData)
+    setBundlesToShow(newData);
+  }, [checkedScents]);
 
   return (
     <>
-      <Filter scents={scents} />
-      <CollectionPage data={data} />
+      {scents ? (
+        <>
+          <Filter
+            scents={scents}
+            checkedScents={checkedScents}
+            setCheckedScents={setCheckedScents}
+          />
+          <CollectionPage bundlesToShow={bundlesToShow} />
+        </>
+      ) : (
+        "loading"
+      )}
     </>
   );
 };
