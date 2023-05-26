@@ -11,6 +11,7 @@ const App = () => {
   const [checkedScents, setCheckedScents] = useState([]);
   const [bundlesToShow, setBundlesToShow] = useState([]);
 
+
   async function getData() {
     try {
       const res = await getBundlesWithMoreInfo();
@@ -32,7 +33,7 @@ const App = () => {
   useEffect(() => {
     getData();
     setLoaded(true);
-  });
+  }, [scents]);
 
   useEffect(() => {
     const newData = data.filter((bundle) => {
@@ -42,7 +43,7 @@ const App = () => {
         }
       }
     });
-    console.log(newData)
+    console.log(newData);
     setBundlesToShow(newData);
   }, [checkedScents]);
 

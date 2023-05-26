@@ -1,7 +1,7 @@
 const Filter = ({ scents, setCheckedScents }) => {
+
   function handleClick() {
     const checkboxes = document.querySelectorAll(".scent");
-    console.log(checkboxes);
     const checked = [];
     for (let i = 0; i < checkboxes.length; ++i) {
       if (checkboxes[i].checked) {
@@ -24,7 +24,6 @@ const Filter = ({ scents, setCheckedScents }) => {
                     className="scent"
                     name={`${scent}`}
                     onChange={handleClick}
-                    checked={true}
                   />
                   <label htmlFor={`${scent}`}>{scent}</label>
                 </>
